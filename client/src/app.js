@@ -8,4 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bucketEntryForm = document.querySelector('form#bucket-list-form')
   const formView = new FormView(bucketEntryForm);
   formView.bindEvents();
+
+  const bucketList = new BucketList();
+  bucketList.bindEvents();
 })
