@@ -13,7 +13,8 @@ FormView.prototype.bindEvents = function () {
 FormView.prototype.handleFormSubmit = function (form) {
   event.preventDefault();
   const newListItem = this.createItem(event.target);
-  PubSub.publish('FormView:bucket-list-item-submitted', newListItem)
+  PubSub.publish('FormView:bucket-list-item-submitted', newListItem);
+  event.target.reset();
 };
 
 FormView.prototype.createItem = function (form) {

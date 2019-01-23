@@ -12,7 +12,18 @@ BucketList.prototype.bindEvents = function () {
   })
 };
 
+BucketList.prototype.getData = function () {
+  this.request.get()
+    .then((bucketList) => {
+      PubSub.publish('BucketList:data-loaded', bucketList)
+    })
+    .catch(console.error);
+};
+
 BucketList.prototype.postItem = function (item) {
   this.request.post(item)
+    .then((bucketList) => {
+      PubSub.publish('BucketList:data-loaded', bucketList)
+    })
 };
 module.exports = BucketList;
