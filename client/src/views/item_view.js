@@ -9,9 +9,10 @@ ItemView.prototype.render = function (item) {
   listItem.id = 'bucket-list-item'
   listItem.textContent = item.name;
   const checkbox = this.createCheckbox();
-  const text = createDeleteButton()
   listItem.appendChild(checkbox);
-  listItem.appendChild(text);
+
+  const deleteButton = this.createDeleteButton(item._id);
+  listItem.appendChild(deleteButton);
   return listItem;
 };
 
@@ -21,9 +22,14 @@ ItemView.prototype.createCheckbox = function () {
   return checkbox;
 };
 
-ItemView.prototype.createDeleteButton = function () {
-  const text = document.createTextNode("\u00D7");
-  return text
+ItemView.prototype.createDeleteButton = function (itemID) {
+  const button = document.createElement('button');
+  button.value = itemID;
+  button.innerHTML = 'Delete';
+  button.addEventListener('click', (event) => {
+    PubSub.publish('ItemView:delete-item-clicked', event.target.value)
+  });
+  return button
 };
 
 module.exports = ItemView;
